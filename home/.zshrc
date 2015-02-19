@@ -46,6 +46,9 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
+# pid メニュー選択
+zstyle ':completion:*:(processes|jobs)' menu yes select=2
+
 
 ########################################
 # vcs_info

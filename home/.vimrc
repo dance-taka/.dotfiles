@@ -1,53 +1,73 @@
-"---------------------------
+" --------------------------------------------------------------------------
 " Start Neobundle Settings.
-"---------------------------
+" --------------------------------------------------------------------------
 if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " bundleで管理するディレクトリを指定
-  " Required:
+  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" Required:
+" --------------------------------------------------------------------------
+"  Neobundle list
+" --------------------------------------------------------------------------
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-" neobundle自体をneobundleで管理
-NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'       " NeoBundle
 
-NeoBundle 'Shougo/vimproc'
-" after install,  turn shell ~/.vim/bundle/vimproc,  (n, g)make -f
-" your_machines_makefile
-" NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
+" for general
+NeoBundle 'Shougo/unite.vim'                " ファイラ
+NeoBundle 'Shougo/neomru.vim'               " 上記最近使ったファイル一覧
 
-NeoBundle 'fholgado/minibufexpl.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'fholgado/minibufexpl.vim'        " tab
+NeoBundle 'Shougo/neocomplcache'            " 補完強化
+NeoBundle 'vim-scripts/SearchComplete'      " 検索補完
 
-" color schemes
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'jpo/vim-railscasts-theme'
+" for develop
+NeoBundle 'tpope/vim-endwise'               " ruby end 自動挿入
+NeoBundle 'vim-scripts/taglist.vim'         " ctags list :Tlist
+NeoBundle 'vim-scripts/AnsiEsc.vim'         " ANSIログカラーリング
+NeoBundle 'tomtom/tcomment_vim'             " ctrl+-でコメント
+NeoBundle 'LeafCage/yankround.vim'          " yanc 拡張
 
-" 今後このあたりに追加のプラグインをどんどん書いて行きます！！"
+" for UI
+NeoBundle 'w0ng/vim-hybrid'                 " color scheme 1
+NeoBundle 'jpo/vim-railscasts-theme'        " color scheme 2
 
 call neobundle#end()
 
-" Required:
 filetype plugin indent on
 
-" 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
-" 毎回聞かれると邪魔な場合もあるので、この設定は任意です。
 NeoBundleCheck
 
-"-------------------------
-" End Neobundle Settings.
-"-------------------------
 
-"-------------------------------------------------------------------------------
+" --------------------------------------------------------------------------
+" unite settings
+" --------------------------------------------------------------------------
+" 入力モードで開始する
+" let g:unite_enable_start_insert=1
+" バッファ一覧
+noremap <C-P> :Unite buffer<CR>
+" ファイル一覧
+noremap <C-N> :Unite -buffer-name=file file<CR>
+" 最近使ったファイルの一覧
+noremap <C-Z> :Unite file_mru<CR>
+" sourcesを「今開いているファイルのディレクトリ」とする
+noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+
+
+
+" --------------------------------------------------------------------------
 " basic configrations
-"-------------------------------------------------------------------------------
-" tags
+" --------------------------------------------------------------------------
 set tags=tags
 
 let mapleader = ","                  " キーマップリーダー
@@ -78,7 +98,13 @@ set number                           " ライン番号
 set mouse=a                          " ターミナルでマウスを使用できるようにする
 set guioptions+=a
 set ttymouse=xterm2
+set incsearch                         " インクリメンタルサーチ
+set wildmenu wildmode=list:full       " メニュー(http://www.atmarkit.co.jp/ait/articles/1107/21/news115_2.html)
+set cursorline                        " カーソルライン表示
 
+"highlight Normal ctermbg=black ctermfg=grey
+"highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
+"highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 
 " help file
 set helpfile=$VIMRUNTIME/doc/help.txt
