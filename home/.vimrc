@@ -91,7 +91,6 @@ set smartindent                      " スマートインデント
 set laststatus=2                     " 常にステータスラインを表示
 set ruler                            " カーソルが何行目の何列目に置かれているかを表示する
 set expandtab                        " Tabキーを空白に変換
-inoremap , ,<Space>                  " コンマの後に自動的にスペースを挿入
 set noundofile                       " undofile無効化
 set number                           " ライン番号
 
@@ -102,6 +101,20 @@ set incsearch                         " インクリメンタルサーチ
 set wildmenu wildmode=list:full       " メニュー(http://www.atmarkit.co.jp/ait/articles/1107/21/news115_2.html)
 set cursorline                        " カーソルライン表示
 
+set formatoptions+=mM                 "全角連結時の空白未挿入
+set ambiwidth=double                  "全角文字カーソル位置補正
+set laststatus=2
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,                   " コンマの後に自動的にスペースを挿入%l)/%L%8P\ 
+
+set encoding=utf-8
+set fileencodings=ucs-bom,iso-2022-jp-2004,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+
+"set whichwrap=b,s,h,l,<,>,[,]        " カーソルを行頭、行末で止まらないようにする
+"set modelines=0                      " モードラインは無効
+"set clipboard+=unnamed               " OSのクリップボードを使用する
+"set clipboard=unnamed                " ヤンクした文字は、システムのクリップボードに入れる
+" imap <C-p> <ESC>"*pa                " 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする
+
 "highlight Normal ctermbg=black ctermfg=grey
 "highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
 "highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
@@ -109,11 +122,6 @@ set cursorline                        " カーソルライン表示
 " help file
 set helpfile=$VIMRUNTIME/doc/help.txt
 
-"set whichwrap=b,s,h,l,<,>,[,]        " カーソルを行頭、行末で止まらないようにする
-"set modelines=0                      " モードラインは無効
-"set clipboard+=unnamed               " OSのクリップボードを使用する
-"set clipboard=unnamed                " ヤンクした文字は、システムのクリップボードに入れる
-" imap <C-p> <ESC>"*pa                " 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする
 
 "入力モード時、ステータスラインのカラーを変更
 augroup InsertHook
@@ -122,19 +130,19 @@ autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340 ctermfg=c
 autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90 ctermfg=white
 augroup END
 
+" --------------------------------------------------------------------------
 " plugin settings
+" --------------------------------------------------------------------------
 " minibuf
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1 
 
-" ファイルタイプ判定をon
-filetype plugin on
-
-" ハイライト on
-syntax enable
-
-" color schemes
+" --------------------------------------------------------------------------
+" post settings
+" --------------------------------------------------------------------------
+filetype plugin on                    " ファイルタイプ判定をon
+syntax enable                         " syntax on
 colorscheme railscasts
 

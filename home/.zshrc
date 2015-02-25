@@ -14,7 +14,8 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # プロンプト
-PROMPT="%{${fg[glay]}%}[%n@%m]%{${reset_color}%} "
+#PROMPT="%{${fg[glay]}%}[%n@%m]%{${reset_color}%} "
+PROMPT="[%n@$fg[red]%m$reset_color:%~] "
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -121,8 +122,23 @@ alias mv='mv -i'
 
 alias mkdir='mkdir -p'
 
-alias vi=Vim
-alias vim=Vim
+case ${OSTYPE} in
+  darwin*)
+    alias vi=Vim
+    alias vim=Vim
+
+    if type gdircolors >/dev/null 2>&1; then
+        eval `gdircolors ~/.colorsrc`
+        alias ls='gls --color=auto -F'
+    fi
+    ;;
+  linux*)
+    if type dircolors >/dev/null 2>&1; then
+        eval `dircolors ~/.colorsrc`
+        alias ls='ls --color=auto -F'
+    fi
+    ;;
+esac
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
