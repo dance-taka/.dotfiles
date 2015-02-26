@@ -71,8 +71,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
-# beep を無効にする
-setopt no_beep
+setopt no_beep                                      # beep を無効にする
 
 # フローコントロールを無効にする
 setopt no_flow_control
