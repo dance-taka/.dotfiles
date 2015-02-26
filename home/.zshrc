@@ -14,8 +14,8 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # プロンプト
-#PROMPT="%{${fg[glay]}%}[%n@%m]%{${reset_color}%} "
-PROMPT="[%n@$fg[red]%m$reset_color:%~] "
+#PROMPT="%{${fg[glay]}%}[%n@%m]:%~%{${reset_color}%} "
+PROMPT="[%n@%{${fg[red]}%}%m%{${reset_color}%}:%~] "
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -104,6 +104,7 @@ setopt hist_reduce_blanks
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
+
 ########################################
 # キーバインド
 
@@ -122,6 +123,15 @@ alias mv='mv -i'
 
 alias mkdir='mkdir -p'
 
+alias sudo='sudo '              # sudo の後のコマンドでエイリアスを有効にする
+
+# グローバルエイリアス
+alias -g L='| less'
+alias -g G='| grep'
+
+
+########################################
+# OSタイプ別設定
 case ${OSTYPE} in
   darwin*)
     alias vi=Vim
@@ -140,22 +150,13 @@ case ${OSTYPE} in
     ;;
 esac
 
-# sudo の後のコマンドでエイリアスを有効にする
-alias sudo='sudo '
-
-# グローバルエイリアス
-alias -g L='| less'
-alias -g G='| grep'
-
-# aws ssh helper
-ssho() { ssh -o HostName=$1 aws-ec2; }
 
 ########################################
-# color
-if type gdircolors >/dev/null 2>&1; then
-    eval `gdircolors ~/.colorsrc`
-    alias ls='gls --color=auto -F'
-fi
+# etc
+
+# aws ssh helper
+ssho() { ssh -o HostName=$1 $2; }
+
 
 ########################################
 # rbenv

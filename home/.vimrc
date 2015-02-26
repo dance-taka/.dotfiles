@@ -9,34 +9,38 @@ endif
 " --------------------------------------------------------------------------
 "  Neobundle list
 " --------------------------------------------------------------------------
-call neobundle#begin(expand('~/.vim/bundle/'))
+if isdirectory($HOME . "/.vim/bundle/neobundle.vim")
+  call neobundle#begin(expand('~/.vim/bundle/'))
 
-NeoBundleFetch 'Shougo/neobundle.vim'       " NeoBundle
+  NeoBundleFetch 'Shougo/neobundle.vim'       " NeoBundle
 
-" for general
-NeoBundle 'Shougo/unite.vim'                " ファイラ
-NeoBundle 'Shougo/neomru.vim'               " 上記最近使ったファイル一覧
+  " for general
+  NeoBundle 'Shougo/unite.vim'                " ファイラ
+  NeoBundle 'Shougo/neomru.vim'               " 上記最近使ったファイル一覧
 
-NeoBundle 'fholgado/minibufexpl.vim'        " tab
-NeoBundle 'Shougo/neocomplcache'            " 補完強化
-NeoBundle 'vim-scripts/SearchComplete'      " 検索補完
+  NeoBundle 'fholgado/minibufexpl.vim'        " tab
+  NeoBundle 'Shougo/neocomplcache'            " 補完強化
+  NeoBundle 'vim-scripts/SearchComplete'      " 検索補完
 
-" for develop
-NeoBundle 'tpope/vim-endwise'               " ruby end 自動挿入
-NeoBundle 'vim-scripts/taglist.vim'         " ctags list :Tlist
-NeoBundle 'vim-scripts/AnsiEsc.vim'         " ANSIログカラーリング
-NeoBundle 'tomtom/tcomment_vim'             " ctrl+-でコメント
-NeoBundle 'LeafCage/yankround.vim'          " yanc 拡張
+  " for develop
+  NeoBundle 'tpope/vim-endwise'               " ruby end 自動挿入
+  NeoBundle 'vim-scripts/taglist.vim'         " ctags list :Tlist
+  NeoBundle 'vim-scripts/AnsiEsc.vim'         " ANSIログカラーリング
+  NeoBundle 'tomtom/tcomment_vim'             " ctrl+-でコメント
+  NeoBundle 'LeafCage/yankround.vim'          " yanc 拡張
+  NeoBundle 'chase/vim-ansible-yaml'          " YAML
 
-" for UI
-NeoBundle 'w0ng/vim-hybrid'                 " color scheme 1
-NeoBundle 'jpo/vim-railscasts-theme'        " color scheme 2
+  " for UI
+  NeoBundle 'w0ng/vim-hybrid'                 " color scheme 1
+  NeoBundle 'jpo/vim-railscasts-theme'        " color scheme 2
 
-call neobundle#end()
+  call neobundle#end()
 
-filetype plugin indent on
+  filetype plugin indent on
+  colorscheme railscasts
 
-NeoBundleCheck
+  NeoBundleCheck
+endif
 
 
 " --------------------------------------------------------------------------
@@ -112,7 +116,7 @@ set fileencodings=ucs-bom,iso-2022-jp-2004,iso-2022-jp-3,iso-2022-jp,eucjp-ms,eu
 "set whichwrap=b,s,h,l,<,>,[,]        " カーソルを行頭、行末で止まらないようにする
 "set modelines=0                      " モードラインは無効
 "set clipboard+=unnamed               " OSのクリップボードを使用する
-"set clipboard=unnamed                " ヤンクした文字は、システムのクリップボードに入れる
+"set clipboard=unnamed,autoselect                " ヤンクした文字は、システムのクリップボードに入れる
 " imap <C-p> <ESC>"*pa                " 挿入モードでCtrl+kを押すとクリップボードの内容を貼り付けられるようにする
 
 "highlight Normal ctermbg=black ctermfg=grey
@@ -144,5 +148,3 @@ let g:miniBufExplModSelTarget = 1
 " --------------------------------------------------------------------------
 filetype plugin on                    " ファイルタイプ判定をon
 syntax enable                         " syntax on
-colorscheme railscasts
-
